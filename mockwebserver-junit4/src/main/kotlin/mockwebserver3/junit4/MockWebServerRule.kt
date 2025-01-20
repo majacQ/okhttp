@@ -15,11 +15,12 @@
  */
 package mockwebserver3.junit4
 
-import mockwebserver3.MockWebServer
-import org.junit.rules.ExternalResource
 import java.io.IOException
 import java.util.logging.Level
 import java.util.logging.Logger
+import mockwebserver3.MockWebServer
+import okhttp3.ExperimentalOkHttpApi
+import org.junit.rules.ExternalResource
 
 /**
  * Runs MockWebServer for the duration of a single test method.
@@ -27,16 +28,17 @@ import java.util.logging.Logger
  * In Java JUnit 4 tests (ie. tests annotated `@org.junit.Test`), use this by defining a field with
  * the `@Rule` annotation:
  *
- * ```
+ * ```java
  * @Rule public final MockWebServerRule serverRule = new MockWebServerRule();
  * ```
  *
  * For Kotlin the `@JvmField` annotation is also necessary:
  *
- * ```
+ * ```kotlin
  * @JvmField @Rule val serverRule = MockWebServerRule()
  * ```
  */
+@ExperimentalOkHttpApi
 class MockWebServerRule : ExternalResource() {
   val server: MockWebServer = MockWebServer()
 
@@ -56,6 +58,7 @@ class MockWebServerRule : ExternalResource() {
     }
   }
 
+  @ExperimentalOkHttpApi
   companion object {
     private val logger = Logger.getLogger(MockWebServerRule::class.java.name)
   }
